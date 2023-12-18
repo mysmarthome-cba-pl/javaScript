@@ -23,45 +23,46 @@ const people = [
 // Napisz funkcję, która przetwarza każdą osobę w tablicy people w następujący sposób:
 // a) Dla każdego imienia, weź ostatnie 3 litery, odwróć ich kolejność i zapisz do zmiennej.
 
-let revertString = [];
+const getThreeLettersOfNameAndRevert = (arrayElemets) => {
+  const firstName = arrayElemets.map((name) => name.firstName);
+  const changedName = firstName.map((name) => name.slice(-3));
+  const revertName = changedName.map((revertString) =>
+    revertString.split("").reverse().join("").toLowerCase()
+  );
+  return revertName;
+};
+const revertStringOfName = getThreeLettersOfNameAndRevert(people);
 
-function getThreeLettersOfNameAndRevert() {
-  for (i = 0; i < people.length; i++) {
-    let lastThreeLetter = people[i].firstName.slice(-3);
-    revertString.push(
-      lastThreeLetter.split("").reverse().join("").toLowerCase()
-    );
-  }
-  return revertString;
-}
-
-getThreeLettersOfNameAndRevert();
 // b) Dla każdego nazwiska, weź pierwsze 3 litery, zamień miejscami pierwszą i ostatnią literę, i dołącz do zmiennej utworzonej w punkcie a).
-function getThreeLettersOfSurnameAndRevert() {
-  let revertThreeFirstLetter;
-  revertString.forEach((element, index) => {
-    let firstThreeLetter = people[index].lastName.substring(0, 3);
-    revertThreeFirstLetter = firstThreeLetter
-      .split("")
-      .reverse()
-      .join("")
-      .toLowerCase();
-    revertString[index] = element + revertThreeFirstLetter;
-  });
-  return revertString;
-}
 
-getThreeLettersOfSurnameAndRevert();
+const getThreeLettersOfSurnameAndRevert = (arrayElemets) => {
+  const lastName = arrayElemets.map((last) => last.lastName);
+  const changedLast = lastName.map((last) => last.slice(0, 3));
+  const revertLast = changedLast.map((revertString) =>
+    revertString.split("").reverse().join("").toLowerCase()
+  );
+  return revertLast;
+};
+const revertStringOfLast = getThreeLettersOfSurnameAndRevert(people);
+
 // c) Zmień wielkość liter w taki sposób, aby ostateczny pseudonim (nickname) zaczynał się wielką literą, a reszta liter była mała.
 function capitalized() {
-  revertString.forEach((element, index) => {
-    revertString[index] = element.charAt(0).toUpperCase() + element.slice(1);
+  people.forEach((element, index) => {
+    people[index] =
+      element.firstName.charAt(0).toUpperCase() + element.lastName.slice(1);
   });
-  return revertString;
+  return people;
 }
-capitalized();
+const toUpperCase = capitalized(people);
 
 // d) Jeśli liczba znaków w imieniu lub nazwisku jest mniejsza niż 2, pseudonim będzie odpowiednio krótszy.
+const addNick = (arrayElements) => {
+  for (i = 0; i < arrayElements.length; i++) {
+    arrayElements[i].nickname = addNick[i];
+  }
+};
+addNick(people);
+console.log(people);
 
 // // ZAD 2 //
 
@@ -186,10 +187,10 @@ function randomNumber2(number) {
 function randomNumber3(number) {
   if (number == null) {
     number = 5;
-  } else if (number > 30) {
-    console.log("Podałeś za dużą liczbę, liczba nie może być większa niż 30");
-  } else if (number < 1) {
-    console.log("podałeś za małą liczbę, liczba nie może być mniejsza niż 1");
+  } else if (number > 30 || number < 1) {
+    console.log(
+      "Podałeś za dużą liczbę, liczba nie może być większa niż 30 i mniejsza niż 1"
+    );
   } else {
     return (parameterNumber = Math.random() * number);
   }
